@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Warning khatam karne ke liye update kiya
+          node-version: '22'
 
       - name: Install Dependencies
         run: npm install
@@ -29,20 +29,23 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Capacitor Android
-        run: npm install @capacitor/android @capacitor/core @capacitor/cli
-
-      - name: Initialize and Sync Capacitor
+      - name: Capacitor Setup
         run: |
-          # Agar capacitor.config.json nahi hai to ye banaye ga
-          if [ ! -f "capacitor.config.json" ]; then
-            npx cap init Lumina com.lumina.app --web-dir dist --confirm
-          fi
-          # Android platform add aur sync karein
-          npx cap add android || true
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          
+          # Pehle se mojood android folder delete karein taake fresh build banay
+          rm -rf android
+          
+          # Capacitor initialize (Bina --confirm ke)
+          npx cap init Lumina com.lumina.app --web-dir dist
+          
+          # Android platform add karein
+          npx cap add android
+          
+          # Sync karein
           npx cap sync android
 
-      - name: Build APK with Gradle
+      - name: Build APK
         run: |
           cd android
           chmod +x gradlew
