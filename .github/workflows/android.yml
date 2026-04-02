@@ -27,22 +27,14 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '21' # Yahan 17 se badal kar 21 kar diya gaya hai
 
       - name: Capacitor Setup
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          
-          # Pehle se mojood android folder delete karein taake fresh build banay
           rm -rf android
-          
-          # Capacitor initialize (Bina --confirm ke)
           npx cap init Lumina com.lumina.app --web-dir dist
-          
-          # Android platform add karein
           npx cap add android
-          
-          # Sync karein
           npx cap sync android
 
       - name: Build APK
