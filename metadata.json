@@ -1,0 +1,7 @@
+{
+  "name": "Lumina Space: AI Interior Designer",
+  "description": "Transform your living space with AI-driven interior design. Upload a photo, reimagine it in various styles like Scandinavian or Mid-Century Modern, and chat with an AI consultant to refine your vision and find shoppable items.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
